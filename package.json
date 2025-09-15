@@ -1,0 +1,34 @@
+{
+  "name": "verse-grammar",
+  "displayName": "Verse",
+  "description": "TextMate grammar for Verse programming language",
+  "version": "1.0.0",
+  "publisher": "simnJS",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simnJS/verse-grammar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/simnJS/verse-grammar/issues"
+  },
+  "engines": {
+    "vscode": "^1.0.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "verse",
+      "aliases": ["Verse", "verse"],
+      "extensions": [".verse"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "verse",
+      "scopeName": "source.verse",
+      "path": "./grammars/verse.tmLanguage.json"
+    }]
+  }
+}
