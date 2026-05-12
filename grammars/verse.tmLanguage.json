@@ -1,11 +1,8 @@
 {
-	"version":   "0",
 	"name":      "Verse",
 	"scopeName": "source.verse",
 	"fileTypes": ["verse"],
 	"patterns":  [{"include":"#ListInd"}],
-
-	"comment0":  "See https://github.com/stedolan/jq/wiki/Docs-for-Oniguruma-Regular-Expressions-(RE.txt)",
 
 	"repository": {
 
@@ -88,7 +85,6 @@
 			"patterns":      [{"include":"#ListInd"}]
 		},
 		"Markup": {
-			"comment0":      "Recognizes Markup in enclosing Markup.",
 			"begin":         "(<(?![/#=]))\\s*([A-Za-z_][A-Za-z0-9_]*)?",
 			"beginCaptures": {"0": {"name": "punctuation.definition.tag"}},
 			"end":           "(?<!#>)(?<=>)",
@@ -96,8 +92,6 @@
 			"patterns":      [{"include":"#Call"},{"include":"#MarkupTail1"},{"include":"#MarkupTail2"}]
 		},
 		"CodeMarkup": {
-			"comment0":      "Recognizes Markup in enclosing code.",
-			"comment1":      "Heuristic only accepts it in a prefix position, not a postfix operator position.",
 			"begin":         "(^|(?<=[({\\[\\-\\&;,+*/=|:<.@]|->|=>|\\Win|^in|\\Wis|^is|\\Wdo|^do|\\Wthen|^then|\\Wuntil|^until|\\Welse|^else|\\Wwhere|^where|\\Wof|\\Wreturn|^return|\\Wyield|^yield|\\Wbreak|^break|\\Wcontinue|^continue))([?^\\s]*+)(<(?![/#=>])\\s*([A-Za-z_][A-Za-z0-9_]*)?)",
 			"beginCaptures": {"2": {"name": "keyword.operator.verse"},"3": {"name": "punctuation.definition.tag"}},
 			"end":           "(?<!#>)(?<=>)",
@@ -105,7 +99,6 @@
 			"patterns":      [{"include":"#Call"},{"include":"#MarkupTail1"},{"include":"#MarkupTail2"}]
 		},
 		"MarkupTail1": {
-			"comment0":      "Recognizes non-significant-indented markup following ':'.",
 			"begin":         ":(?=>)|;",
 			"beginCaptures": {"0": {"name": "punctuation.definition.tag"}},
 			"end":           ">",
@@ -113,7 +106,6 @@
 			"patterns":      [{"include":"#ContentsInd"}]
 		},
 		"MarkupTail2": {
-			"comment0":      "Recognizes non-significant-indented HTML style markup from '>' to '</ident>.",
 			"begin":         ">",
 			"beginCaptures": {"0": {"name": "punctuation.definition.tag"}},
 			"end":           "</\\s*([A-Za-z_][A-Za-z0-9_]*)?\\s*>",
@@ -121,7 +113,6 @@
 			"patterns":      [{"include":"#ContentsInd"}]
 		},
 		"Contents": {
-			"comment0":      "Recognizes everything allowed inside of markup that's not significantly indented.",
 			"patterns": [
 				{"include":"#BlockCmt"},
 				{"include":"#LineCmt"},
@@ -135,7 +126,6 @@
 			]
 		},
 		"ContentsInd": {
-			"comment0":      "Recognizes everything allowed inside of significantly indented markup.",
 			"patterns": [
  				{"include":"#MarkCmt7" }, {"include":"#MarkCmt6" }, {"include":"#MarkCmt5" }, {"include":"#MarkCmt4" }, {"include":"#MarkCmt3" }, {"include":"#MarkCmt2" }, {"include":"#MarkCmt1" }, {"include":"#MarkCmt0" },
 				{"include":"#MarkCode7"}, {"include":"#MarkCode6"}, {"include":"#MarkCode5"}, {"include":"#MarkCode4"}, {"include":"#MarkCode3"}, {"include":"#MarkCode2"}, {"include":"#MarkCode1"}, {"include":"#MarkCode0"},
@@ -158,15 +148,11 @@
 			"patterns":      [{"include":"#ListInd"}]
 		},
 		"Specs": {
-			"comment0":      "Recognizes specifiers of the form a<b>.",
-			"comment1":      "Because CodeMarkup is tried before Specs, this should only activate in postfix positions.",
-			"comment2":      "Encodes a limited version of the grammar for delimiting the contents of the attribute.",
 			"name":          "punctuation.definition.tag",
 			"match":         "<(?![=#>])(?<Call>(?<BlockCmt><#(\\g<BlockCmt>|(?!#>).)*+#>)|[\\s\\^\\&?]|(?!(and\\W|or\\W|not\\W|where\\W|in\\W|is\\W|of\\W|at\\W))[A-Za-z_][A-Za-z0-9_]*+|[0-9/][A-Za-z0-9_.@]++|'(\\\\.|[^'])*+'|\"(\\\\.|[{](\\g<Call>)*+[}]|<[^#]|#[^>]|[^\\<#\"{}])*+\"|<\\g<Call>*+>|[\\[{(](\\g<Call>|<[^#]|[\\-\\&\\^.%+*/,;>:@=!|?])*+[\\]})])*+>"
 		},
 
 		"In": {
-			"comment0":      "Highlight :t=v equals sign as definition operator.",
 			"begin":         "((?!:[)]):|in(?=\\W)|(?=(var|set|ref|alias|live)\\W))\\s*+(?!#|$)",
 			"beginCaptures": {"0": {"name": "punctuation.definition.tag"}},
 			"end":           "(=(?!>)|$|(\\+=|-=|\\*=|/=)|(?=:|=>|@|,|;|\\)|\\]|\\}|(over|when|where|while|next|in|is|with|do|until|catch|then|else|of|at)\\W))",
@@ -174,13 +160,10 @@
 			"patterns":      [{"name":"keyword.declaration.verse","match":"(var|set|ref|alias|live)(?=\\W)"},{"include":"#DefineIdent1"},{"include":"#DefineIdent2"},{"include":"#Call"}]
 		},
 		"DefineIdent1": {
-			"comment0":      "Recognizes defined identifiers for special syntax highlighting.",
-			"comment1":      "Encodes a limited version of the grammar for postfixes that participate in definitions.",
 			"match":         "(^|(?<=[({\\[\\-\\&;,+*/|<=>.]|->|=>|:\\)|\\Wvar|^var|\\Wref|^ref|\\Walias|^alias|\\Wlive|^live|\\Win|^in|\\Wis|^is|\\Wdo|^do|\\Wthen|^then|\\Wuntil|^until|\\Welse|^else|\\Wover|\\Wwhile|\\Wupon|\\Wnext|\\Wwhere|\\Wof|^of|\\Wat|^at|\\Wreturn|^return|\\Wyield|^yield|\\Wbreak|^break|\\Wcontinue|^continue))([\\s\\^?]*+)([A-Za-z_][A-Za-z0-9_]*+('((?!<#|#>|[\\\\{}\"'])[ -~])*')?+)(?=((?<Call>(?<BlockCmt><#(\\g<BlockCmt>|(?!#>).)*+#>)|[\\s\\^?]++|(&|->)\\s*[A-Za-z_][A-Za-z0-9_]*+|->|'(\\\\.|[^'])*+'|\"(\\\\.|[{](\\g<Call>)*+[}]|<[^#]|#[^>]|[^\\<#\"{}]|\\g<BlockCmt>)*+\"|<(\\g<Call>|[A-Za-z0-9_])*+>|[\\[({](\\g<Call>|<[^#]|[A-Za-z0-9_\\-\\&\\^.%+*/,;>:@=!|?])*+[\\])}]))*+((:|in\\W|is\\W)\\s*+(?![)#]|$)))",
 			"captures":      {"3": {"name":"entity.name.function.verse"}}
 		},
 		"DefineIdent2": {
-			"comment0":      "Recognizes defined identifiers using var x=y syntax.",
 			"match":         "(?<=\\Wvar|^var|\\Wref|^ref|\\Walias|^alias|\\Wlive|^live)([\\s\\^?]*+)([A-Za-z_][A-Za-z0-9_]*+)(?=((?<Call>(?<BlockCmt><#(\\g<BlockCmt>|(?!#>).)*+#>)|[\\s\\^?]++|(&|->)\\s*[A-Za-z_][A-Za-z0-9_]*+|->|'(\\\\.|[^'])*+'|\"(\\\\.|[{](\\g<Call>)*+[}]|<[^#]|#[^>]|[^\\<#\"{}]|\\g<BlockCmt>)*+\"|<(\\g<Call>|[A-Za-z0-9_])*+>|[\\[({](\\g<Call>|<[^#]|[A-Za-z0-9_\\-\\&\\^.%+*/,;>:@=!|?])*+[\\])}]))*+=)",
 			"captures":      {"2": {"name":"entity.name.function.verse"}}
 		},
