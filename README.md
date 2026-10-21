@@ -17,6 +17,10 @@ Verse is a programming language designed for metaverse experiences, primarily us
 
 This grammar is designed to be used with GitHub Linguist for syntax highlighting on GitHub.
 
+## Credits
+
+This grammar is based on Epic Games' Verse TextMate grammar, also published under CC0 in [verselang/book](https://github.com/verselang/book).
+
 ## License
 
 MIT License - see LICENSE file for details.
